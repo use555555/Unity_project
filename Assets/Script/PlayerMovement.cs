@@ -22,7 +22,6 @@ public class PlayerMovement : NetworkBehaviour
         else
         {
             cc = GetComponent<CharacterController>();
-            Cursor.lockState = CursorLockMode.Locked;
         }
     }
     // Update is called once per frame

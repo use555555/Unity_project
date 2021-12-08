@@ -8,8 +8,9 @@ using MLAPI.Messaging;
 public class EnemyAttack : NetworkBehaviour
 {
     public Component attackpoint;
-    float attackRater = 2f;
+    float attackRater = 1f;
     float attackTimer = 0f;
+    public AudioClip zattack;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,20 +23,21 @@ public class EnemyAttack : NetworkBehaviour
         if (attackTimer >= 1f / attackRater)
         {
             attackTimer = 0;
-            AttackServerRpc();
+            AttackClientRpc();
         }
     }
-    [ServerRpc]
-    void AttackServerRpc()
+    [ClientRpc]
+    void AttackClientRpc()
     {
         Ray ray = new Ray(attackpoint.transform.position, attackpoint.transform.forward);
-        if (Physics.Raycast(ray, out RaycastHit hit, 3f))
+        if (Physics.Raycast(ray, out RaycastHit hit, 1.5f))
         {
             //we hit something
             var player = hit.collider.GetComponent<PlayerHealth>();
             if (player != null)
             {
                 //we hit a player
+                gameObject.GetComponent<AudioSource>().PlayOneShot(zattack);
                 player.TakeDamange(30f);
             }
         }

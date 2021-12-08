@@ -4,6 +4,7 @@ using UnityEngine;
 using MLAPI;
 using MLAPI.NetworkVariable;
 using MLAPI.Messaging;
+using UnityEngine.UI;
 public class PlayerHealth : NetworkBehaviour
 {
     public NetworkVariableFloat health = new NetworkVariableFloat(100f);
@@ -19,13 +20,21 @@ public class PlayerHealth : NetworkBehaviour
         health.Value -= damage;
         // check health
         if (health.Value <= 0)
-        {
+        {;
             // respwan
-            health.Value = 100f;
-            Vector3 pos = new Vector3(Random.Range(-10, 10), 0, Random.Range(-10, 10));
+            Vector3 pos = new Vector3(0f, 25f, 0f);
             ClientRespawnClientRpc(pos);
+            GameController.Death += 1;
+
         }
     }
+    public void Heal()
+    {
+        health.Value = 100f;
+        Vector3 pos = new Vector3(Random.Range(-10, 10), 0.5f, Random.Range(-10, 10));
+        ClientRespawnClientRpc(pos);
+    }
+
     [ClientRpc]
     void ClientRespawnClientRpc(Vector3 position)
     {
@@ -37,9 +46,9 @@ public class PlayerHealth : NetworkBehaviour
         {
             renderer.enabled = false;
         }
-        yield return new WaitForSeconds(1f);
-        cc.enabled = false;
         transform.position = position;
+        cc.enabled = false;
+        yield return new WaitForSeconds(1f);
         cc.enabled = true;
         foreach (var renderer in renderers)
         {

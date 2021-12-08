@@ -13,18 +13,25 @@ public class EnemyAI : NetworkBehaviour
     NavMeshAgent nm;
     public GameObject[] Targets;
     public Transform target;
+    public AudioClip znormal;
 
     // Start is called before the first frame update
     void Start()
     {
         nm = GetComponent<NavMeshAgent>();
         StartCoroutine(Think());
+        InvokeRepeating("Sound", 0f, 10f);
     }
 
     // Update is called once per frame
     void Update()
     {
         Targets = GameObject.FindGameObjectsWithTag("Player");
+    }
+
+    void Sound()
+    {
+        gameObject.GetComponent<AudioSource>().PlayOneShot(znormal);
     }
 
     IEnumerator Think()
