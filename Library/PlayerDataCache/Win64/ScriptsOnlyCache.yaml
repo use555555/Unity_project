@@ -17,9 +17,6 @@ ScriptsOnlyBuild:
     - UnityEngine.InputSystem.InputSettings
     - UnityEngine.InputSystem.InputSystemObject
     - UnityEngine.InputSystem.RemoteInputPlayerConnection
-    Unity.Multiplayer.MLAPI.Editor.dll:
-    - UnityEditor.NetworkBehaviourEditor
-    - UnityEditor.NetworkObjectEditor
     Unity.Multiplayer.MLAPI.Prototyping.dll:
     - MLAPI.Prototyping.NetworkTransform
     Unity.Multiplayer.MLAPI.Runtime.dll:

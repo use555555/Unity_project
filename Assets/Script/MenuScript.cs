@@ -75,7 +75,7 @@ public class MenuScript : NetworkBehaviour
 
     IEnumerator Selection()
     {
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(1f);
         Player = GameObject.FindGameObjectsWithTag("Player");
         Me = Player.Length - 1;
         menuPanel.SetActive(false);
